@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="styleSheet" href="../js/bootstrap-3.4.1/css/bootstrap.css"/>
+    <script src="../js/jquery-3.3.1.js"></script>
+    <title></title>
+</head>
+<body>
+<div style="width: 1000px; border: 1px groove solid; margin: 0 auto; margin-top: 120px;">
+    <table class="table table-hover">
+        <thead>
+        <tr style="font-size: 20px; font-weight: bold; text-align: center;">
+            <td>编　号</td>
+            <td>名　称</td>
+            <td>单　价</td>
+        </tr>
+        </thead>
+        <tbody id="goods" style="text-align: center;">
+            <tr style="font-size: 15px;">
+                <td>23</td>
+                <td>23</td>
+                <td>23</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        showGoodList();
+    })
+
+    function showGoodList() {
+        $.ajax({
+            "url": "/springboot/hot",
+            "type": "get",
+            "dataType": "json",
+            "success": function (json) {
+                var list = json.data;
+                $("#goods").empty();
+                for (var i = 0; i < list.length; i++) {
+                    var html = '<tr>' +
+                        '<td>#{pid}</td>' +
+                        '<td>#{pname}</td>' +
+                        '<td>#{pprices}¥</td>' +
+                        '</tr>';
+                    html = html.replace(/#{pid}/g, list[i].pid);
+                    html = html.replace(/#{pname}/g, list[i].pname);
+                    html = html.replace(/#{pprices}/g, list[i].pprices);
+                    $("#goods").append(html);
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.superclovers.springboot.mapper.GoodsMapper">
+    <!-- 获取所有商品信息列表 -->
+    <!-- List<GoodsEntity> findList();  -->
+    <select id="findList" resultType="com.superclovers.springboot.entity.GoodsEntity">
+        select pid,pname,pprices from goods
+    </select>
+</mapper>
