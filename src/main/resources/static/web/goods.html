@@ -2,34 +2,219 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link type="text/css" rel="styleSheet" href="../js/bootstrap-3.4.1/css/bootstrap.css"/>
     <script src="../js/jquery-3.3.1.js"></script>
-    <title></title>
+    <link type="text/css" rel="styleSheet" href="../js/bootstrap-3.4.1/css/bootstrap.css"/>
+    <script src="../js/bootstrap-3.4.1/js/bootstrap.js"></script>
+    <title>SuperClovers商城</title>
+    <style type="text/css">
+        a {
+            color: #0f0f0f;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
+
+<!--新增弹窗-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">新增商品数据</h4>
+            </div>
+            <form id="insertData">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="txt_departmentname">商品编号</label>
+                        <input type="text" name="pid" class="form-control" id="txt_"
+                               placeholder="商品编号不能为空">
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_departmentname">商品名称</label>
+                        <input type="text" name="pname" class="form-control" id="txt_departmentname"
+                               placeholder="商品名称">
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_parentdepartment">商品单价</label>
+                        <input type="text" name="pprices" class="form-control" id="txt_parentdepartment"
+                               placeholder="商品单价">
+                    </div>
+                </div>
+            </form>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><span
+                        class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭
+                </button>
+                <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><span
+                        class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--修改弹窗-->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="updateModalLabel">修改商品数据</h4>
+            </div>
+            <form id="update">
+                <div class="modal-body" id="x">
+                    <div class="form-group">
+                        <label for="txt_departmentname">商品编号</label>
+                        <input type="text" name="pid" class="form-control" id="pid"
+                               placeholder="" readonly="readonly">
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_departmentname">商品名称</label>
+                        <input type="text" name="pname" class="form-control" id="pname"
+                               placeholder="商品名称">
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_parentdepartment">商品单价</label>
+                        <input type="text" name="pprices" class="form-control" id="pprices"
+                               placeholder="商品单价">
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><span
+                        class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭
+                </button>
+                <button type="button" id="" class="btn btn-primary" data-dismiss="modal" onclick="up_submit()"><span
+                        class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--删除弹窗-->
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="deleteModalLabel">操作确认</h4>
+            </div>
+            <div class="modal-body">确定要删除该数据？</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button id="deleteData" type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
 <div style="width: 1000px; border: 1px groove solid; margin: 0 auto; margin-top: 120px;">
+    <button id="btn_add" type="button" class="btn btn-default">新　增</button>
     <table class="table table-hover">
         <thead>
-        <tr style="font-size: 20px; font-weight: bold; text-align: center;">
+        <tr style="font-size: 20px; font-weight: bold; text-align: center; border-top: 1px red solid;">
             <td>编　号</td>
             <td>名　称</td>
             <td>单　价</td>
+            <td>操　作</td>
         </tr>
         </thead>
         <tbody id="goods" style="text-align: center;">
-            <tr style="font-size: 15px;">
-                <td>23</td>
-                <td>23</td>
-                <td>23</td>
-            </tr>
+        <tr style="font-size: 15px;">
+            <td>23</td>
+            <td>23</td>
+            <td>23</td>
+            <td>23</td>
+        </tr>
         </tbody>
     </table>
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
         showGoodList();
+
     })
 
+    //新增按钮的事件
+    $("#btn_add").click(function () {
+        $("#myModalLabel").text("新增数据");
+        $('#myModal').modal();
+    });
+    //确定新增数据
+    $("#btn_submit").click(function () {
+        reset();
+        $("#updateModal").modal('hide');
+        $.ajax({
+            "url": "/springboot/insertdata",
+            // serialize() 方法通过序列化表单值创建 URL 编码文本字符串。
+            "data": $("#insertData").serialize(),
+            "type": "post",
+            "dataType": "json",
+            "success": function (json) {
+                if (json.state == 200) {
+                    alert("添加成功");
+                    window.location.reload();
+                } else {
+                    alert("添加失败");
+                }
+            }
+        });
+    });
+
+    //点击修改按钮事件展示对应数据绑定到编辑框上
+    function btn_update(pid) {
+        $.ajax({
+            url: "/springboot/getPidData/" + pid,
+            type: "GET",
+            dataType: "json",
+            success: function (json) {
+                console.log(json);
+                if (json.state == 200) {
+                    $("#pid").val(pid);
+                    $("#pname").val(json.data.pname);
+                    $("#pprices").val(json.data.pprices);
+                } else {
+                    alert(json.data.message);
+                }
+            }
+        })
+    }
+
+    //点击保存提交修改的数据
+    function up_submit() {
+        //获取模态框数据
+        console.log("开始执行提交数据");
+        $.ajax({
+            "url": "/springboot/updateData",
+            "data": $("#update").serialize(),
+            "type": "post",
+            "dataType": "json",
+            "success": function (json) {
+                console.log(json);
+                if (json.state == 200) {
+                    alert("修改成功");
+                    window.location.reload();
+                } else {
+                    alert("修改失败");
+                }
+            }
+        })
+
+    }
+
+
+    //遍历数据
     function showGoodList() {
         $.ajax({
             "url": "/springboot/hot",
@@ -40,9 +225,13 @@
                 $("#goods").empty();
                 for (var i = 0; i < list.length; i++) {
                     var html = '<tr>' +
-                        '<td>#{pid}</td>' +
-                        '<td>#{pname}</td>' +
-                        '<td>#{pprices}¥</td>' +
+                        '<td id="upid">#{pid}</td>' +
+                        '<td id="upname">#{pname}</td>' +
+                        '<td id="upprices">#{pprices}¥</td>' +
+                        '<td>' +
+                        '<button id="" type="button" class="btn btn-default" data-toggle="modal" data-target="#updateModal"><a href="javascript:btn_update(' + list[i].pid + ')">修改</a></button>' +
+                        '<button data-id="12" id="btn_delete" type="button" class="btn btn-default" data-toggle="modal" data-target="#deleteModal" onclick="btn_delete(#{pid})">删除</button>' +
+                        '</td>' +
                         '</tr>';
                     html = html.replace(/#{pid}/g, list[i].pid);
                     html = html.replace(/#{pname}/g, list[i].pname);
@@ -52,6 +241,39 @@
             }
         })
     }
+
+    //删除对应数据
+    function btn_delete(pid) {
+        var isClisk = false;
+        $('#deleteData').click(function () {
+            isClisk = true;
+            if (isClisk == true){
+                console.log("删除数据已点确认");
+                console.log("开始删除数据，")
+                $.ajax({
+                    "url": "/springboot/deleteData?pid=" + pid,
+                    "type": "post",
+                    "dataType": "json",
+                    "success": function (json) {
+                        if (json.state == 200) {
+                            alert("删除成功");
+                            window.location.reload();
+                        } else {
+                            alert("删除失败");
+                        }
+                    }
+                })
+            }
+        });
+    }
+
+    //清空
+    function reset() {
+        $("#pid").val("");
+        $("#pname").val("");
+        $("#pprices").val("");
+    }
+
 </script>
 </body>
 </html>

@@ -15,6 +15,7 @@ public class GoodsServiceImpl implements IGoodsService {
 
     /**
      * 获取热销商品列表
+     *
      * @return 热销商品列表
      */
     @Override

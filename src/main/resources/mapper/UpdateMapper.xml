@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.superclovers.springboot.mapper.UpdateMapper">
+    <!-- 修改商品数据 -->
+    <!-- Integer updateData(
+    @Param("pid") Integer pid,
+    @Param("pname") String pname,
+    @Param("pprices") float pprices
+    );-->
+    <update id="updateData">
+        UPDATE
+            goods
+        SET
+            pname=#{pname},
+            pprices=#{pprices}
+        WHERE
+            pid=#{pid}
+    </update>
+
+<!--    根据pid查询相应的商品数据-->
+<!--    GoodsEntity findPid(Integer pid); -->
+    <select id="findPid" resultType="com.superclovers.springboot.entity.GoodsEntity">
+        SELECT
+            pid, pname, pprices
+        FROM
+            goods
+        WHERE
+            pid=#{pid}
+    </select>
+
+<!--    删除对应pid的商品数据-->
+<!--    Integer deleteData(Integer pid);-->
+    <delete id="deleteData">
+        DELETE FROM
+            goods
+        WHERE
+            pid=#{pid}
+    </delete>
+
+</mapper>
